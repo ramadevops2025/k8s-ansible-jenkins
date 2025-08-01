@@ -1,5 +1,5 @@
-FROM quay.io/centos/centos:stream9-minimal
-RUN yum install -y httpd zip unzip curl
+FROM quay.io/centos/centos:latest
+RUN dnf install -y httpd zip unzip curl
 ADD https://www.tooplate.com/zip-templates/2135_mini_finance.zip /var/www/html/
 WORKDIR /var/www/html/
 RUN unzip photogenic.zip
