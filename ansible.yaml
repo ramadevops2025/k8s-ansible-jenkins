@@ -19,8 +19,8 @@
 
   vars:
     # Use variables for file paths to make the playbook more maintainable
-    deployment_file: /home/ubuntu/Deployment.yaml
-    service_file: /home/ubuntu/Service.yaml
+    deployment_file: /home/rama/Deployment.yaml
+    service_file: /home/rama/Service.yaml
 
   tasks:
     - name: Ensure the required Python libraries are installed
