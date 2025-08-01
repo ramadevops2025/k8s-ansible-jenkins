@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: ramapemmasani/k8s-jenkins-ansible
+          image: ramapemmasani/k8s-jenkins-ansible:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
