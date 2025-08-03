@@ -1,49 +1,7 @@
-# - hosts: node
-#   become: true
-#   tasks:
-#     - name: delete old deployment
-#       command: kubectl delete -f /home/rama/Deployment.yaml
-#     - name: delete old service
-#       command: kubectl delete -f /home/ubuntu/Service.yaml
-#     - name: create new deployment
-#       command: kubectl apply -f /home/ubuntu/Deployment.yaml
-#     - name: create new service
-#       command: kubectl apply -f /home/ubuntu/Service.yaml
-
----
-# This playbook applies Kubernetes deployment and service manifests.
-# It uses the native kubernetes.core.k8s module for idempotency and reliability.
-- name: Manage Kubernetes resources
-  hosts: node
+- hosts: node
   become: true
-
-  vars:
-    # Use variables for file paths to make the playbook more maintainable
-    deployment_file: /home/rama/Deployment.yaml
-    service_file: /home/rama/Service.yaml
-
   tasks:
-    - name: Ensure the required Python libraries are installed
-      # The `pip` module is used to install Python packages.
-      # This task ensures the 'kubernetes' library is present on the remote host,
-      # which is a dependency for the kubernetes.core.k8s module.
-      pip:
-        name: kubernetes
-        state: present
-        executable: pip3  # Specify pip3 to use the correct Python interpreter
-
-    - name: Apply Kubernetes Deployment
-      # The kubernetes.core.k8s module is the recommended way to interact with Kubernetes
-      # It is idempotent, meaning it only makes changes when necessary.
-      kubernetes.core.k8s:
-        state: present    # Ensures the resource exists and is up to date
-        src: "{{ deployment_file }}"
-        validate:
-          fail_on_error: true
-
-    - name: Apply Kubernetes Service
-      kubernetes.core.k8s:
-        state: present
-        src: "{{ service_file }}"
-        validate:
-          fail_on_error: true
+    - name: create new deployment
+      command: kubectl apply -f /home/rama/Deployment.yaml
+    - name: create new service
+      command: kubectl apply -f /home/rama/Service.yaml
